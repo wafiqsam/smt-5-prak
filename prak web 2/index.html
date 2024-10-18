@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        .calculator {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            padding: 20px;
+        }
+
+        .display {
+            background-color: #333;
+            color: white;
+            font-size: 2rem;
+            text-align: right;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 1.2rem;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        /* Efek hover (saat mouse berada di atas tombol) */
+        button:hover {
+            background-color: #666;
+        }
+
+        /* Efek active (saat tombol ditekan) */
+        button:active {
+            background-color: #888;
+            transform: scale(0.95); /* Mengecilkan sedikit saat ditekan */
+        }
+
+        /* Tombol khusus dengan warna berbeda */
+        #clear {
+            background-color: #f44336;
+        }
+
+        #clear:hover {
+            background-color: #ff6659;
+        }
+
+        #clear:active {
+            background-color: #ff887b;
+        }
+
+        #equals {
+            background-color: #ff5722;
+            grid-column: span 2;
+        }
+
+        #equals:hover {
+            background-color: #ff784e;
+        }
+
+        #equals:active {
+            background-color: #ff9a79;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <button onclick="clearDisplay()" id="clear">AC</button>
+            <button onclick="appendOperator('%')">%</button>
+            <button onclick="appendOperator('^')">x^y</button>
+            <button onclick="appendOperator('/')">/</button>
+
+            <button onclick="appendNumber(7)">7</button>
+            <button onclick="appendNumber(8)">8</button>
+            <button onclick="appendNumber(9)">9</button>
+            <button onclick="appendOperator('*')">*</button>
+
+            <button onclick="appendNumber(4)">4</button>
+            <button onclick="appendNumber(5)">5</button>
+            <button onclick="appendNumber(6)">6</button>
+            <button onclick="appendOperator('-')">-</button>
+
+            <button onclick="appendNumber(1)">1</button>
+            <button onclick="appendNumber(2)">2</button>
+            <button onclick="appendNumber(3)">3</button>
+            <button onclick="appendOperator('+')">+</button>
+
+            <button onclick="appendNumber(0)">0</button>
+            <button onclick="appendNumber('.')">.</button>
+            <button onclick="calculate()" id="equals">=</button>
+        </div>
+    </div>
+
+    <script>
+        let displayValue = '0';
+        let operator = null;
+        let firstOperand = null;
+        let waitingForSecondOperand = false;
+
+        const display = document.getElementById('display');
+
+        function appendNumber(number) {
+            if (waitingForSecondOperand === true) {
+                displayValue = number.toString();
+                waitingForSecondOperand = false;
+            } else {
+                displayValue = displayValue === '0' ? number.toString() : displayValue + number.toString();
+            }
+            display.innerText = displayValue;
+        }
+
+        function appendOperator(nextOperator) {
+            if (operator && waitingForSecondOperand) {
+                operator = nextOperator;
+                return;
+            }
+
+            if (firstOperand === null) {
+                firstOperand = parseFloat(displayValue);
+            } else if (operator) {
+                const result = calculateResult(firstOperand, parseFloat(displayValue), operator);
+                displayValue = `${result}`;
+                display.innerText = displayValue;
+                firstOperand = result;
+            }
+
+            waitingForSecondOperand = true;
+            operator = nextOperator;
+        }
+
+        function calculateResult(first, second, operator) {
+            switch (operator) {
+                case '+':
+                    return first + second;
+                case '-':
+                    return first - second;
+                case '*':
+                    return first * second;
+                case '/':
+                    return first / second;
+                case '%':
+                    return first % second;
+                case '^':
+                    return Math.pow(first, second);
+                default:
+                    return second;
+            }
+        }
+
+        function calculate() {
+            if (operator && !waitingForSecondOperand) {
+                const result = calculateResult(firstOperand, parseFloat(displayValue), operator);
+                displayValue = `${result}`;
+                display.innerText = displayValue;
+                firstOperand = result;
+                operator = null;
+            }
+        }
+
+        function clearDisplay() {
+            displayValue = '0';
+            operator = null;
+            firstOperand = null;
+            waitingForSecondOperand = false;
+            display.innerText = displayValue;
+        }
+    </script>
+</body>
+</html>

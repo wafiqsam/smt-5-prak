@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pendaftaran</title>
+    <style>
+        /* CSS  */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #E9EFEC;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: #16325B;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            color: #B7B7B7;
+            width: 300px;
+            text-align: center;
+        }
+
+        input[type="text"], input[type="email"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #B7B7B7;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #B7B7B7;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Form Pendaftaran webinar '24</h2>
+        <form id="formPendaftaran" onsubmit="return validateForm()">
+            <input type="text" id="nama" placeholder="Nama">
+            <input type="email" id="email" placeholder="Email">
+            <textarea id="alamat" rows="4" placeholder="Alamat Lengkap"></textarea>
+            <button type="submit">Daftar</button>
+        </form>
+    </div>
+
+    <script>
+        // Fungsi validasi form
+        function validateForm() {
+            var nama = document.getElementById("nama").value;
+            var email = document.getElementById("email").value;
+            var alamat = document.getElementById("alamat").value;
+
+            if (nama == "" || email == "" || alamat == "") {
+                alert("Semua data harus diisi.");
+                return false; // Mencegah form disubmit
+            }
+            return true; // Jika semua terisi, form dapat disubmit
+        }
+    </script>
+
+</body>
+</html>

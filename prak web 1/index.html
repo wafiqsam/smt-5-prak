@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon Voyage</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #AAB396;
+        }
+
+        header {
+            background-color: #d3c6a4;
+            padding: 20px;
+            text-align: left;
+            font-size: 2.5em;
+            color: #4a362e;
+            font-family: 'Style Script', cursive;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 10px;
+            background-color: #AAB396;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #4a362e;
+            font-size: 1.2em;
+        }
+
+        .login-signup {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+
+        .login-signup button {
+            background-color: #a3b3b2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-signup button :hover {
+            background-color: #4a362e;
+        }
+
+
+        h2 {
+            text-align: center;
+            color: #6a4b39;
+            font-size: 1.8em;
+        }
+
+        .search-box {
+            text-align: center;
+            margin: 30px;
+        }
+
+        .search-box input {
+            font-size: 1.5em;
+            padding: 10px;
+            width: 50%;
+            border-radius: 50px;
+            border: 1px solid #b5b2aa;
+            text-align: center;
+        }
+
+        .search-box input::placeholder {
+            color: #a08d81;
+        }
+
+        .featured-cities {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            
+        }
+
+        .city {
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+        .city img {
+            width: 250px;
+            height: 300px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3 ease;
+        }
+
+        .featured-cities :hover{
+            transform: translateY(-10px)
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #d3c6a4;
+            color: #4a362e;
+        }
+    </style>
+</head>
+<body>
+    <header>Bon Voyage</header>
+    <nav>
+        <a href="#">home</a>
+        <a href="#">about</a>
+        <a href="#">contact us</a>
+    </nav>
+
+    <div class="login-signup">
+        <button>login</button>
+        <button>signup</button>
+    </div>
+
+    <h2>The best free walking tour guides in the world are here:</h2>
+
+    <div class="search-box">
+        <input type="text" placeholder="Where? search by city">
+    </div>
+
+    <h2>Featured cities</h2>
+
+    <div class="featured-cities">
+        <div class="city">
+            <img src="images/florence.jpeg" alt="Florence">
+            <p>free walking tour<br>florence</p>
+        </div>
+        <div class="city">
+            <img src="images/vienna.jpeg" alt="Vienna">
+            <p>free walking tour<br>vienna</p>
+        </div>
+        <div class="city">
+            <img src="images/budapest.jpeg" alt="Budapest">
+            <p>free walking tour<br>budapest</p>
+        </div>
+        <div class="city">
+            <img src="images/barcelona.jpeg" alt="Barcelona">
+            <p>free walking tour<br>barcelona</p>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Bon Voyage
+    </footer>
+</body>
+</html>

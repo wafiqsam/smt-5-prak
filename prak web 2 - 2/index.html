@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List with SVG Icons</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f1f5f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #4a4e69;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 12px;
+            width: 100%;
+            border: 2px solid #9a8c98;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #f28482;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #f28482;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #e76f51;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            padding: 10px 15px;
+            background-color: #ffe5d9;
+            border: 1px solid #f7d1ba;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .icons svg {
+            cursor: pointer;
+            margin-left: 10px;
+            width: 20px;
+            height: 20px;
+            fill: #0077b6;
+            transition: fill 0.3s ease;
+        }
+
+        .icons svg:hover {
+            fill: #023e8a;
+        }
+
+        .icons .delete:hover {
+            fill: #d90429;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My To-Do List</h1>
+        <input type="text" id="new-task" placeholder="Enter new task">
+        <button onclick="addTask()">Add</button>
+        <ul id="task-list"></ul>
+    </div>
+
+    <script>
+        let taskList = [];
+
+        function addTask() {
+            const taskInput = document.getElementById("new-task");
+            const taskText = taskInput.value.trim();
+
+            if (taskText !== "") {
+                taskList.push(taskText);
+                taskInput.value = "";
+                renderTasks();
+            }
+        }
+
+        function deleteTask(index) {
+            taskList.splice(index, 1);
+            renderTasks();
+        }
+
+        function editTask(index) {
+            const newTaskText = prompt("Edit the task:", taskList[index]);
+            if (newTaskText !== null && newTaskText.trim() !== "") {
+                taskList[index] = newTaskText;
+                renderTasks();
+            }
+        }
+
+        function renderTasks() {
+            const taskListElement = document.getElementById("task-list");
+            taskListElement.innerHTML = "";
+
+            taskList.forEach((task, index) => {
+                const li = document.createElement("li");
+                li.innerHTML = `
+                    <span>${task}</span>
+                    <div class="icons">
+                        <svg onclick="editTask(${index})" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit"><path d="M11 4l9 9M12 21l9-9M5.8 19.2L4 22l2.8-1.8M4.2 18.8L18 5a1 1 0 1 1 1.4 1.4L5.6 20.2"></path></svg>
+                        <svg onclick="deleteTask(${index})" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash delete"><path d="M3 6h18M6 6v14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6M10 11v6M14 11v6M5 6h14l1-3H4l1 3z"></path></svg>
+                    </div>
+                `;
+                taskListElement.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
